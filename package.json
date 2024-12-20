@@ -4,6 +4,7 @@
   "description": "food_delivery_website_backend",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

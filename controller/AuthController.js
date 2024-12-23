@@ -12,8 +12,18 @@ const register = async (req, res) => {
 
 };
 
+const login = async (req, res) => {
+    const { username, password } = req.body;
+    const cred = await Credential.findOne({ username });
+    if (!cred || !(await bcrypt.compare(password, cred.password))) {
+        return res.status(403).send('Invalid username or password');
+    }
 
+    const token = jwt.sign({ username: cred.username, role: cred.role }, SECRET_KEY, { expiresIn: '1h' });
+    res.json({ token });
+
+};
 module.exports = {
-
+    login,
     register
 }

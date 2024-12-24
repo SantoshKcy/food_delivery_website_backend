@@ -1,7 +1,7 @@
 const Item = require('../model/Item')
 const findAll = async (req, res) => {
     try {
-        const items = await Item.find();
+        const items = await Item.find().populate(["subacategoryId"]);
         res.status(200).json(items);
     } catch (e) {
         res.json(e)
@@ -10,10 +10,11 @@ const findAll = async (req, res) => {
 }
 const save = async (req, res) => {
     try {
-        const { name, description } = req.body
+        const { name, description, price } = req.body
         const item = new Item({
             name,
             description,
+            price,
             image: req.file.originalname
 
         });

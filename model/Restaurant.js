@@ -12,7 +12,7 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    phonenumber: {
+    phoneNumber: {
         type: Number,
         required: true
     },
@@ -20,11 +20,11 @@ const restaurantSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    openhours: {
+    openHours: {
         type: Date,
         required: true
     },
-    closehours: {
+    closeHours: {
         type: Date,
         required: true
     },

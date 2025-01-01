@@ -10,7 +10,7 @@ const findAll = async (req, res) => {
 }
 const save = async (req, res) => {
     try {
-        const { name, description, price } = req.body
+        const { quantity, price, createdAt } = req.body
         const cart = new Cart({
             quantity,
             price,

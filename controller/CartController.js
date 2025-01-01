@@ -1,8 +1,8 @@
-const Item = require('../model/Item')
+const Cart = require('../model/Cart')
 const findAll = async (req, res) => {
     try {
-        const items = await Item.find().populate(["categoryId"]);
-        res.status(200).json(items);
+        const cartSchema = await Item.find().populate(["itemId", "customerId", "restaurantId"]);
+        res.status(200).json(carts);
     } catch (e) {
         res.json(e)
     }
@@ -11,15 +11,15 @@ const findAll = async (req, res) => {
 const save = async (req, res) => {
     try {
         const { name, description, price } = req.body
-        const item = new Item({
-            name,
-            description,
+        const cart = new Cart({
+            quantity,
             price,
-            image: req.file.originalname
+            createdAt,
+
 
         });
-        await item.save();
-        res.status(201).json(item)
+        await cart.save();
+        res.status(201).json(cart)
     } catch (e) {
         res.json(e)
     }
@@ -27,8 +27,8 @@ const save = async (req, res) => {
 }
 const findById = async (req, res) => {
     try {
-        const item = await Item.findById(req.params.id);
-        res.status(200).json(item)
+        const cart = await Cart.findById(req.params.id);
+        res.status(200).json(cart)
     } catch (e) {
         res.json(e)
 
@@ -38,7 +38,7 @@ const findById = async (req, res) => {
 }
 const deleteById = async (req, res) => {
     try {
-        const item = await Item.findByIdAndDelete(req.params.id);
+        const cart = await Cart.findByIdAndDelete(req.params.id);
         res.status(200).json("data Deleted")
     } catch (e) {
         res.json(e)
@@ -49,8 +49,8 @@ const deleteById = async (req, res) => {
 }
 const update = async (req, res) => {
     try {
-        const item = await Item.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        res.status(201).json(item)
+        const cart = await Cart.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.status(201).json(cart)
     } catch (e) {
         res.json(e)
 

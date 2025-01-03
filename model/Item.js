@@ -1,6 +1,14 @@
 
 const mongoose = require("mongoose")
 const itemSchema = new mongoose.Schema({
+    categoryId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "categories",
+    },
+    restaurantId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "restaurants",
+    },
     name: {
         type: String,
         required: true
@@ -17,10 +25,10 @@ const itemSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    subacategoryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "subcategories",
-    }
+    availablity: {
+        type: Boolean,
+        required: true
+    },
 
 })
 const Item = mongoose.model("items", itemSchema);

@@ -8,23 +8,32 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "items"
     },
+    restaurantId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "restaurants"
+    },
+
     date: {
         type: Date,
         required: true
     },
     price: {
-        type: Integer,
+        type: Number,
         required: true
     },
     quantity: {
-        type: Integer,
+        type: Number,
         required: true
     },
 
     status: {
         type: String,
         required: true
-    }
+    },
+    time: {
+        type: String,
+        required: true
+    },
 
 })
 const Order = mongoose.model("orders", orderSchema);

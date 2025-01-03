@@ -13,7 +13,7 @@ const findAll = async (req, res) => {
 }
 const save = async (req, res) => {
     try {
-        const { name, description, price } = req.body
+        const { name, description, address, phoneNumber, email, openHours, closeHours, rating } = req.body
         const restaurant = new Restaurant({
             name,
             description,
@@ -27,7 +27,7 @@ const save = async (req, res) => {
 
         });
         await item.save();
-        res.status(201).json(item)
+        res.status(201).json(restaurant)
     } catch (e) {
         res.json(e)
     }
@@ -48,7 +48,7 @@ const findById = async (req, res) => {
 const deleteById = async (req, res) => {
     try {
         const restaurant = await Restaurant.findByIdAndDelete(req.params.id);
-        res.status(200).json("data Deleted")
+        res.status(200).json("Data Deleted")
     } catch (e) {
         res.json(e)
 

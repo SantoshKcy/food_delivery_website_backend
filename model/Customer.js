@@ -8,8 +8,13 @@ const customerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    contact_no: {
+    password: {
         type: String,
+        required: true
+
+    },
+    contact_no: {
+        type: Number,
         required: true
     }
 

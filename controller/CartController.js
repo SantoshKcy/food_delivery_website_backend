@@ -1,7 +1,7 @@
 const Cart = require('../model/Cart')
 const findAll = async (req, res) => {
     try {
-        const cartSchema = await Item.find().populate(["itemId", "customerId", "restaurantId"]);
+        const carts = await Item.find().populate(["itemId", "customerId"]);
         res.status(200).json(carts);
     } catch (e) {
         res.json(e)
@@ -10,8 +10,10 @@ const findAll = async (req, res) => {
 }
 const save = async (req, res) => {
     try {
-        const { quantity, price, createdAt } = req.body
+        const { quantity, price, createdAt, itemId, customerId } = req.body
         const cart = new Cart({
+            itemId,
+            customerId,
             quantity,
             price,
             createdAt,

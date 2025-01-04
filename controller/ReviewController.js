@@ -10,16 +10,9 @@ const findAll = async (req, res) => {
 }
 const save = async (req, res) => {
     try {
-        const { rating, comment, createdAt } = req.body
-        const review = new Review({
-            rating,
-            comment,
-            createdAt,
-            customerId: req.body.customerId,
-            restaurantId: req.body.restaurantId
-        });
-        await review.save();
-        res.status(201).json(review)
+        const reviews = new Review(req.body);
+        await reviews.save();
+        res.status(201).json(reviews)
     } catch (e) {
         res.json(e)
     }

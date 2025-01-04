@@ -2,7 +2,7 @@ const express = require("express")
 
 const router = express.Router();
 const { findAll, save, findById, deleteById, update } = require("../controller/ItemController");
-const { authenticateToken, authorizeRole } = require("../security/Auth")
+
 const multer = require("multer")
 
 const storage = multer.diskStorage({
@@ -16,11 +16,11 @@ const storage = multer.diskStorage({
 })
 
 const upload = multer({ storage })
-router.get("/", authenticateToken, authorizeRole("Admin"), findAll);
-router.post("/", upload.single('file'), authenticateToken, save);
+router.get("/", findAll);
+router.post("/", upload.single('file'), save);
 router.get("/:id", findById);
-router.delete("/:id", authenticateToken, deleteById);
-router.put("/:id", authenticateToken, update)
+router.delete("/:id", deleteById);
+router.put("/:id", update)
 
 
 

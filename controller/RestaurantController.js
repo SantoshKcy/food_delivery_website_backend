@@ -26,7 +26,7 @@ const save = async (req, res) => {
             image: req.file.originalname
 
         });
-        await item.save();
+        await restaurant.save();
         res.status(201).json(restaurant)
     } catch (e) {
         res.json(e)

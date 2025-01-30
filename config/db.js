@@ -1,13 +1,15 @@
 const mongoose = require("mongoose");
+
 const connectDB = async () => {
     try {
-        await mongoose.connect("mongodb://localhost:27017/db_hungerend");
-        console.log("Mongodb Connected")
+        const conn = await mongoose.connect(process.env.LOCAL_DATABASE_URI);
 
-    } catch (e) {
-        console.log("Not connected");
-
+        console.log(
+            `MongoDB connected to : ${conn.connection.host}`.white.underline.bold
+        );
+    } catch (error) {
+        console.error(`MongoDB connection error: ${error}`.red.underline.bold);
     }
-}
+};
 
-module.exports = connectDB
+module.exports = connectDB;

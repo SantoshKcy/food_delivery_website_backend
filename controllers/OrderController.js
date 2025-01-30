@@ -1,4 +1,4 @@
-const Order = require('../model/Order')
+const Order = require('../models/Order')
 const findAll = async (req, res) => {
     try {
         const orders = await Order.find().populate(["customerId", "itemId",]);

@@ -2,7 +2,7 @@ const asyncHandler = require("../middleware/async");
 const Customer = require("../models/Customer");
 const path = require("path");
 const fs = require("fs");
-const customer = require("../models/Customer");
+
 
 // @desc    Get all customers
 // @route   GET /api/v1/customers

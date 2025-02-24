@@ -1,37 +1,4 @@
-// const express = require("express")
-// const connectDb = require("./config/db")
-// const CustomerRouter = require("./routes/CustomerRoute")
-// const RestaurantRouter = require("./routes/RestaurantRoute")
-// const CategoryRouter = require("./routes/CategoryRoute")
-// const ItemRouter = require("./routes/ItemRoute")
-// const CartRouter = require("./routes/CartRoute")
-// const OrderRouter = require("./routes/OrderRoute")
-// const PaymentRouter = require("./routes/PaymentRoute")
-// const WishlistRouter = require("./routes/WishlistRoute")
-// const ReviewRouter = require("./routes/ReviewRoute")
-// const AuthRouter = require("./routes/AuthRoute")
-// const app = express();
-// connectDb();
 
-// app.use(express.json());
-// app.use("/api/customer", CustomerRouter);
-// app.use("/api/restaurant", RestaurantRouter);
-// app.use("/api/category", CategoryRouter);
-// app.use("/api/item", ItemRouter);
-// app.use("/api/cart", CartRouter);
-// app.use("/api/order", OrderRouter);
-// app.use("/api/wishlist", WishlistRouter);
-// app.use("/api/payment", PaymentRouter)
-// app.use("/api/review", ReviewRouter)
-// app.use("/api/auth", AuthRouter);
-
-
-
-// const port = 3000;
-// app.listen(port, () => {
-//     console.log(`Server running at http://localhost:${port}`)
-
-// })
 const path = require("path");
 const express = require("express");
 const dotenv = require("dotenv");
@@ -48,7 +15,6 @@ const app = express();
 
 app.use(cors());
 app.options("*", cors());
-
 // Load env file
 dotenv.config({
     path: "./config/config.env",
@@ -59,6 +25,9 @@ connectDB();
 
 // Route files
 const auth = require("./routes/customer");
+const category = require("./routes/category");
+const subcategory = require("./routes/subcategory");
+const item = require("./routes/item");
 
 // Body parser
 app.use(express.json());
@@ -80,13 +49,28 @@ app.use(helmet());
 
 // Prevent XSS attacks
 app.use(xss());
+app.use((req, res, next) => {
+    res.setHeader('Cross-Origin-Resource-Policy', 'cross-origin');
+    res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+    res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+    next();
+});
+
 
 // Set static folder
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, 'public')));
+
 // app.use(express.static('public'));
 
 // Mount routers
 app.use("/api/v1/auth", auth);
+app.use("/api/v1/category", category);
+app.use("/api/v1/subcategory", subcategory);
+app.use("/api/v1/item", item);
+
+
+
+
 
 const PORT = process.env.PORT || 5000;
 

@@ -1,6 +1,7 @@
 const multer = require("multer");
-const maxSize = 2 * 1024 * 1024; // 2MB
 const path = require("path");
+
+const maxSize = 2 * 1024 * 1024; // 2MB
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -8,7 +9,7 @@ const storage = multer.diskStorage({
     },
     filename: (req, file, cb) => {
         let ext = path.extname(file.originalname);
-        cb(null, `IMG-${Date.now()}` + ext);
+        cb(null, `IMG-${Date.now()}${ext}`);
     },
 });
 
@@ -23,6 +24,7 @@ const upload = multer({
     storage: storage,
     fileFilter: imageFileFilter,
     limits: { fileSize: maxSize },
-}).single("profilePicture");
+});
 
+// ✅ Export multer instance properly
 module.exports = upload;

@@ -1,4 +1,8 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
+
 const customerSchema = new mongoose.Schema({
     fname: {
         type: String,
@@ -30,17 +34,24 @@ const customerSchema = new mongoose.Schema({
         type: String,
         default: null,
         trim: true,
+    },
+    role: {
+        type: String,
+        enum: ["customer", "admin"], // Define roles
+        default: "customer", // Default role for new users
     }
 
 
 });
 // Encrypt password using bcrypt
 customerSchema.pre("save", async function (next) {
-    if (!this.isModified("password")) {
-        next();
+    if (!this.isModified("password") || this.isPasswordModified) {
+        return next();
     }
+
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
+    next();
 });
 
 // Sign JWT and return

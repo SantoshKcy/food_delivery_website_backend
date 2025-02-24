@@ -1,36 +1,50 @@
+const mongoose = require("mongoose");
 
-const mongoose = require("mongoose")
+// Item Schema
 const itemSchema = new mongoose.Schema({
-    categoryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "categories",
-    },
-    restaurantId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "restaurants",
-    },
     name: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
     },
     description: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
     },
     price: {
-        type: Number,
-        required: true
+        type: String,
+        required: true,
+        min: 0,  // Ensure price cannot be negative
+    },
+    availability: {
+        type: String,
+        enum: ["In Stock", "Out of Stock"],
+        required: true,
     },
     image: {
-        type: String,
-        required: true
+        type: String,  // Assuming image URL or file path
+        required: true,
     },
-    availablity: {
-        type: Boolean,
-        required: true
+    category: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Category", // Reference to Category model
+        required: true,
     },
+    subcategory: {
+        type: mongoose.Schema.ObjectId,
+        ref: "Subcategory", // Reference to Subcategory model
+        required: true,
+    },
+    tags: {
+        type: [String],
+        enum: ["Featured", "Popular", "Trending", "Special"],
+        default: [], // By default, an item won't belong to any special category
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+});
 
-})
-const Item = mongoose.model("items", itemSchema);
-
-module.exports = Item;
+module.exports = mongoose.model("Item", itemSchema);

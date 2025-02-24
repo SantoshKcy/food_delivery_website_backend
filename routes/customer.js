@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { protect } = require("../middleware/auth");
-
+const { protect, authorize } = require("../middleware/auth");
 const upload = require("../middleware/uploads");
 
 const {
@@ -10,14 +9,20 @@ const {
     register,
     login,
     uploadImage,
-
+    updateCustomer,
+    updatePassword
 } = require("../controllers/customer");
 
-
-router.post("/uploadImage", upload, uploadImage);
-router.post("/register", register);
+// Routes
+router.post("/register", upload.single("profilePicture"), register);
 router.post("/login", login);
+
+// Restrict these routes to logged-in users
 router.get("/getAllCustomers", protect, getCustomers);
-router.get("/getAllCustomer", protect, getCustomer);
+router.get("/getCustomer/:id", protect, authorize("admin", "customer"), getCustomer);
+router.put("/updateCustomer/:id", protect, upload.single("profilePicture"), updateCustomer);
+router.put('/updatePassword/:id', protect, updatePassword); // For updating password
+
+router.post("/uploadImage", protect, authorize("admin", "customer"), upload.single("profilePicture"), uploadImage);
 
 module.exports = router;

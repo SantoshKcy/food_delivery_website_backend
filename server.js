@@ -32,9 +32,7 @@ const item = require("./routes/item");
 const wishlist = require("./routes/wishlist");
 const cart = require("./routes/cart");
 const order = require("./routes/order");
-
-
-
+const khaltiRoutes = require("./routes/khaltiRoutes");
 
 
 
@@ -80,6 +78,7 @@ app.use("/api/v1/item", item);
 app.use("/api/v1/wishlist", wishlist);
 app.use("/api/v1/cart", cart);
 app.use("/api/v1/order", order);
+app.use("/api/khalti", khaltiRoutes);
 
 //routes
 

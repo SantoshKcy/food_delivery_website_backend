@@ -2,22 +2,22 @@ const mongoose = require("mongoose");
 const orderSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User", // Assuming you have a User model
+        ref: "User",
         required: true
     },
     cartItems: [
         {
             itemId: {
                 type: mongoose.Schema.Types.ObjectId,
-                ref: "Item", // Assuming you have an Item model
+                ref: "Item", 
                 required: true
             },
             quantity: {
-                type: Number, // Changed to Number
+                type: Number,
                 required: true
             },
             price: {
-                type: Number, // Changed to Number
+                type: Number,
                 required: true
             }
         }
@@ -55,25 +55,25 @@ const orderSchema = new mongoose.Schema({
     },
     paymentStatus: {
         type: String,
-        enum: ['pending', 'paid', 'failed'], // Payment status
-        default: 'pending' // Default status
+        enum: ['pending', 'paid', 'failed'], 
+        default: 'pending'
     },
     subtotal: {
-        type: Number, // Changed to Number
+        type: Number,
         required: true
     },
     deliveryCharge: {
-        type: Number, // Changed to Number
+        type: Number,
         required: true
     },
     totalPrice: {
-        type: Number, // Changed to Number
+        type: Number,
         required: true
     },
     orderStatus: {
         type: String,
         enum: ['pending', 'confirmed', 'processing', 'completed', 'cancel'],
-        default: 'pending' // Default order status
+        default: 'pending' 
     },
     createdAt: {
         type: Date,

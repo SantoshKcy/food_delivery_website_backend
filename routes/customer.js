@@ -18,7 +18,7 @@ router.post("/register", upload.single("profilePicture"), register);
 router.post("/login", login);
 
 // Restrict these routes to logged-in users
-router.get("/getAllCustomers", protect, getCustomers);
+router.get("/getAllCustomers", getCustomers);
 router.get("/getCustomer/:id", protect, authorize("admin", "customer"), getCustomer);
 router.put("/updateCustomer/:id", protect, upload.single("profilePicture"), updateCustomer);
 router.put('/updatePassword/:id', protect, updatePassword); // For updating password

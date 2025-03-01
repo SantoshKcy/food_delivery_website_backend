@@ -10,9 +10,7 @@ const bcrypt = require("bcryptjs");
 // @route   GET /api/v1/customers
 // @access  Private (Admin)
 exports.getCustomers = asyncHandler(async (req, res, next) => {
-    if (req.user.role !== "admin") {
-        return res.status(403).json({ message: "Access denied. Admins only." });
-    }
+
 
     const customers = await Customer.find({});
     res.status(200).json({

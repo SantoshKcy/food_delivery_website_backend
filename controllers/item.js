@@ -16,6 +16,8 @@ exports.getItems = asyncHandler(async (req, res, next) => {
     });
 });
 
+
+
 // @desc    Get single item
 // @route   GET /api/v1/items/:id
 // @access  Public
@@ -119,6 +121,69 @@ exports.updateItem = asyncHandler(async (req, res, next) => {
         data: item,
     });
 });
+
+// @desc    Get items by category
+// @route   GET /api/v1/items/category/:categoryId
+// @access  Public
+
+
+exports.getItemsByCategory = asyncHandler(async (req, res, next) => {
+    const { categoryId } = req.params;
+
+    // Look for the category by ID
+    const category = await Category.findById(categoryId);
+
+    // If category not found, return a 404
+    if (!category) {
+        return res.status(404).json({ message: `Category with ID ${categoryId} not found` });
+    }
+
+    // Fetch items using the category's _id
+    const items = await Item.find({ category: category._id }).populate("category subcategory");
+
+    if (items.length === 0) {
+        return res.status(404).json({ message: `No items found for category with ID ${categoryId}` });
+    }
+
+    res.status(200).json({
+        success: true,
+        count: items.length,
+        data: items,
+    });
+});
+
+
+
+exports.getItemsBySearch = async (req, res) => {
+    const searchQuery = req.query.query;
+    console.log("Search Query: ", searchQuery);  // Log the search query
+
+    if (!searchQuery) {
+        return res.status(400).json({ message: "Search query is required." });
+    }
+
+    try {
+        // Search only in the name of the item
+        const items = await Item.find({
+            name: { $regex: searchQuery, $options: 'i' }  // Case-insensitive search in name
+        });
+
+        console.log("Found Items: ", items);  // Log the found items
+
+        if (items.length > 0) {
+            res.status(200).json(items);
+        } else {
+            res.status(404).json({ message: "No items found." });
+        }
+    } catch (error) {
+        console.error("Error: ", error);  // Log the error
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
+
+
+
 
 // @desc    Delete item
 // @route   DELETE /api/v1/items/:id

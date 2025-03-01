@@ -13,6 +13,7 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
 
+
 app.use(cors());
 app.options("*", cors());
 // Load env file
@@ -28,6 +29,15 @@ const auth = require("./routes/customer");
 const category = require("./routes/category");
 const subcategory = require("./routes/subcategory");
 const item = require("./routes/item");
+const wishlist = require("./routes/wishlist");
+const cart = require("./routes/cart");
+const order = require("./routes/order");
+
+
+
+
+
+
 
 // Body parser
 app.use(express.json());
@@ -67,6 +77,11 @@ app.use("/api/v1/auth", auth);
 app.use("/api/v1/category", category);
 app.use("/api/v1/subcategory", subcategory);
 app.use("/api/v1/item", item);
+app.use("/api/v1/wishlist", wishlist);
+app.use("/api/v1/cart", cart);
+app.use("/api/v1/order", order);
+
+//routes
 
 
 

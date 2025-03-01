@@ -10,6 +10,9 @@ const {
     updateItem,
     deleteItem,
     getItemsByTags,
+    getItemsByCategory,
+    getItemsBySearch
+
 
 } = require("../controllers/item"); // Import item controller
 
@@ -29,5 +32,7 @@ router.put("/updateItem/:id", protect, upload.single("itemImage"), updateItem);
 router.delete("/deleteItem/:id", protect, deleteItem);
 
 router.get("/items-by-tags", getItemsByTags);
+router.get("/getItems/category/:categoryId", getItemsByCategory);
+router.get("/search", getItemsBySearch);
 
 module.exports = router;

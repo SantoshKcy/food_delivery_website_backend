@@ -17,7 +17,7 @@ const {
 } = require("../controllers/item"); // Import item controller
 
 // Route to create a new item (protected, admin only)
-router.post("/createItem", protect, upload.single("itemImage"), createItem);
+router.post("/createItem", upload.single("itemImage"), createItem);
 
 // Route to get all items
 router.get("/getItems", getItems);
@@ -26,13 +26,13 @@ router.get("/getItems", getItems);
 router.get("/getItem/:id", getItem);
 
 // Route to update an item (protected, admin only)
-router.put("/updateItem/:id", protect, upload.single("itemImage"), updateItem);
+router.put("/updateItem/:id", upload.single("itemImage"), updateItem);
 
 // Route to delete an item (protected, admin only)
 router.delete("/deleteItem/:id", protect, deleteItem);
 
-router.get("/items-by-tags", getItemsByTags);
+router.get("/items-by-tags", protect, getItemsByTags);
 router.get("/getItems/category/:categoryId", getItemsByCategory);
-router.get("/search", getItemsBySearch);
+router.get("/search", protect, getItemsBySearch);
 
 module.exports = router;

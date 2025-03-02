@@ -12,7 +12,7 @@ const {
 } = require("../controllers/category");
 
 
-router.post("/createCategory", protect, upload.single("categoryImage"), createCategory);
+router.post("/createCategory", upload.single("categoryImage"), createCategory);
 router.get("/getCategories", getCategories);
 router.get("/getCategory/:id", getCategory);
 router.put("/updateCategory/:id", protect, upload.single("categoryImage"), updateCategory);

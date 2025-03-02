@@ -12,11 +12,11 @@ const {
 } = require("../controllers/subcategory");
 
 
-router.post("/createSubcategory", protect, createSubcategory);
+router.post("/createSubcategory", createSubcategory);
 router.get("/getSubcategories", getSubcategories);
 router.get("/getSubcategory/:id", getSubcategory);
-router.put("/updateSubcategory/:id", protect, updateSubcategory);
-router.delete("/deleteSubcategory/:id", protect, deleteSubcategory);
+router.put("/updateSubcategory/:id", updateSubcategory);
+router.delete("/deleteSubcategory/:id", deleteSubcategory);
 router.get("/getSubcategoriesByCategoryId/:categoryId", getSubcategoriesByCategoryId);
 
 module.exports = router;
